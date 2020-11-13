@@ -3,7 +3,7 @@ const os = require("os"),
     fsPromises = require("fs").promises,
     readdir = fsPromises.readdir,
     stat = fsPromises.stat,
-    rename = fsPromises.rename,
+    mv = require("mv"),
     unlink = fsPromises.unlink,
     lstat = fsPromises.lstat,
     util = require("util"),
@@ -68,7 +68,9 @@ class LocalStorage {
     async upload(path, files) {
         try {
             for (let file of files) {
-                await rename(file.path, this.root + path + file.originalname);
+                await mv(file.path, this.root + path + file.originalname, (err) => {
+                  console.log(err)
+                });
             }
         } catch (err) {
             console.error(err);
