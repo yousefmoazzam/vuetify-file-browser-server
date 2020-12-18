@@ -8,6 +8,8 @@ const os = require("os"),
     lstat = fsPromises.lstat,
     util = require("util"),
     rimraf = util.promisify(require("rimraf"));
+    readFile = fsPromises.readFile
+    writeFile = fsPromises.writeFile
 
 
 class LocalStorage {
@@ -94,6 +96,25 @@ class LocalStorage {
             }
         } catch (err) {
             console.error(err);
+        }
+    }
+
+    async readTextFile(path) {
+        try {
+            let fileContents = await readFile(this.root + path, 'utf-8');
+            return fileContents;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async writeTextFile(path, data) {
+        try {
+            let fileWritePromise = await writeFile(this.root + path,
+                data.configContent, 'utf-8');
+            return fileWritePromise;
+        } catch (err) {
+            console.log(err);
         }
     }
 }

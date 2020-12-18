@@ -28,6 +28,18 @@ module.exports = function (storages, options = {}) {
             await storage.delete(req.query.path);
             return res.sendStatus(200);
         });
+
+        // `readTextFile` endpoint
+        router.get(`/${storage.code}/readTextFile`, async function (req, res) {
+            let result = await storage.readTextFile(req.query.path);
+            return res.json(result);
+        });
+
+        // `writeTextFile` endpoint
+        router.post(`/${storage.code}/writeTextFile`, async function (req, res) {
+            await storage.writeTextFile(req.query.path, req.body);
+            return res.sendStatus(200);
+        });
     }
     return router;
 }
