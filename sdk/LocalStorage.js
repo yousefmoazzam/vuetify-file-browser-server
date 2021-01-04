@@ -104,7 +104,7 @@ class LocalStorage {
             let fileContents = await readFile(this.root + path, 'utf-8');
             return fileContents;
         } catch (err) {
-            console.log(err);
+            return err;
         }
     }
 
