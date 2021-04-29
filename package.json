@@ -4,7 +4,7 @@
   "description": "Server for Vuetify File Browser",
   "main": "index.js",
   "scripts": {
-    "mkdir": "mkdir -p /tmp-upload && mkdir -p /files",
+    "mkdir": "mkdir -p /files",
     "start": "npm run mkdir && node index.js"
   },
   "repository": {

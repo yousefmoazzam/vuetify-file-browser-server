@@ -67,18 +67,6 @@ class LocalStorage {
         }
     }
 
-    async upload(path, files) {
-        try {
-            for (let file of files) {
-                await mv(file.path, this.root + path + file.originalname, (err) => {
-                  console.log(err)
-                });
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
     async mkdir(path) {
         await fsPromises.mkdir(this.root + path, { recursive: true });
     }

@@ -19,14 +19,6 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// where temporary store files while uploading
-let uploadPath;
-if (process.env.FILEBROWSER_UPLOAD_PATH) {
-    uploadPath = path.resolve(process.cwd(), process.env.FILEBROWSER_UPLOAD_PATH);
-} else {
-    uploadPath = os.tmpdir();
-}
-
 // get AWS configuration from process.env
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET, FILEBROWSER_AWS_ROOT_PATH } = process.env;
 
@@ -37,9 +29,7 @@ const S3Storage = require("./sdk").S3Storage;
 app.use("/storage", require("./sdk").Router([
     new LocalStorage(),
     new S3Storage(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET, FILEBROWSER_AWS_ROOT_PATH)
-], {
-    uploadPath
-}));
+]));
 
 // home route
 app.get('/', (req, res) => res.send("Vuetify File Browser server"));
